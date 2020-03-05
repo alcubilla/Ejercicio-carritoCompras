@@ -1,0 +1,13 @@
+div
+h2.text-center Galeria de imagenes
+table.table.table-borderless.table-dark.text-center
+    each image in images
+        tr 
+            th 
+                img(src='/images/' + image, width="80px")
+            th.align-middle
+                h5=image.substring(0,image.lastIndexOf('.')).toUpperCase()
+            th.align-middle
+                a.btn.btn-icon.btn-icon-center.btn-light(href='/download/'+ image)=image
+div.text-center
+    a.btn.btn-icon.btn-icon-center.btn-primary(href='/mostrar/')='Mostrar descargas'

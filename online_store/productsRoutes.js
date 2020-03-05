@@ -1,19 +1,19 @@
-export default (PRODUCTS,productsList, total) => {
+export default (PRODUCTS,Data, store) => {
 
   //mostrar  
   PRODUCTS.get ('/', (req, res) => {
       const viewActive = Number(req.query.status) === 1;
       const activeProducts = viewActive
-      ? productsList.filter(p => p.stock > 0)
-      : productsList; //solo los productos existentes
-      res.send({status:'ok', result: activeProducts});
+      ? Data.filter(p => p.stock > 0)
+      : Data; //solo los productos existentes
+      res.send(activeProducts);
   });
 
   //mostrar por id
   PRODUCTS.get('/:id',(req,res)=>{
-    const product= productsList.find(p => p.id === req.params.id);
+    const product= Data.find(p => p.id === req.params.id);
     if(product){
-    res.json({status:'ok', result: product});
+    res.json(product);
     }else{
         res.sendStatus(404);
     }
@@ -22,12 +22,13 @@ export default (PRODUCTS,productsList, total) => {
 
   //comprar
   PRODUCTS.put('/:id',(req,res)=>{
-    const product= productsList.find(p => p.id === req.params.id);
+    const product= Data.find(p => p.id === req.params.id);
     if(product.stock >0 && product){
     product.stock--;
-    total += product.value;
-    console.log(total)
-    res.json({status:'ok', result: product});
+    store.total += product.value;
+    product.sales +=product.value;
+    console.log(store)
+    res.json(product);
      
     }else{
       res.sendStatus(404);
@@ -37,14 +38,14 @@ export default (PRODUCTS,productsList, total) => {
 
   //borrar
   PRODUCTS.delete('/:id',(req,res)=>{
-    const product= productsList.find(p => p.id === req.params.id);
+    const product= Data.find(p => p.id === req.params.id);
     if(product){
-    productsList = productsList.filter(p => p.id !== req.params.id)
-    res.json({status:'ok', result: productsList});
+    Data = Data.filter(p => p.id !== req.params.id)
+    res.json(Data);
     }else{
         res.sendStatus(404);
     }
    
   })
-  return total
+ 
 }

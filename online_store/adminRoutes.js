@@ -1,26 +1,33 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export default (ADMIN,productsList, total) => {
+export default (ADMIN,Data, store) => {
+
+  //ver elementos
+  ADMIN.get('/',(req,res)=>{
+    res.json(Data);  
+  });
 
   //agrega un elemento
-  ADMIN.post('/',(req,res)=>{
+  ADMIN.post('/add',(req,res)=>{
     if(req.query.name && req.query.stock && req.query.value)
-      {productsList.push(
+      {Data.push(
         {id: uuidv4(),
         name: req.query.name,
         stock: Number(req.query.stock),
-        value: Number(req.query.value)
+        value: Number(req.query.value),
+        sales:0
         });
-        res.json(productsList);
+        res.json(Data);
       }else res.send("No se ha podido agregar el producto, te faltó un elemento");     
   });
-
+  
 //borrar 
   ADMIN.delete('/:id',(req,res)=>{
-    const product= productsList.find(p => p.id === req.params.id);
+    const product= Data.find(p => p.id === req.params.id);
     if(product){
-    productsList = productsList.filter(p => p.id !== product.id)
-    res.json({status:'ok', result: productsList});
+    var i = Data.indexOf( product );
+    i !== -1 && Data.splice( i, 1 );
+    res.json(Data);
     }else{
         res.sendStatus(404);
     }
@@ -28,12 +35,12 @@ export default (ADMIN,productsList, total) => {
 
 //actualizar 
   ADMIN.put('/:id',(req,res)=>{
-    const product= productsList.find(p => p.id === req.params.id);
+    const product= Data.find(p => p.id === req.params.id);
     if(product){
         product.name=req.body.name;
         product.value=req.body.value;
         product.stock=req.body.stock;
-        res.json({status:'ok', result: productsList});
+        res.json({status:'ok', result: Data});
     }else{
         res.status(404).send("NO SE ENCONTRO EL ARTICULO A MODIFICAR");
     }
@@ -41,8 +48,7 @@ export default (ADMIN,productsList, total) => {
   });
 
   ADMIN.get('/shop',(req,res) =>{
-      console.log(total)
-    res.send(`total ${total}`);
+    res.send(`Total ventas ${store.total} <br> Por producto: ${Data}`);
   });
 
    
