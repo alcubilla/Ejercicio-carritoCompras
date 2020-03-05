@@ -1,0 +1,26 @@
+{
+  "name": "shop-pug",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:1": "nodemon --exec babel-node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "uuid": "^7.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "body-parser": "^1.19.0",
+    "core-js": "^3.6.4",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.2",
+    "pug": "^2.0.4"
+  }
+}
