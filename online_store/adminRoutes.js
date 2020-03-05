@@ -48,8 +48,6 @@ export default (ADMIN,Data, store) => {
   });
 
   ADMIN.get('/shop',(req,res) =>{
-    res.send(`Total ventas ${store.total} <br> Por producto: ${Data}`);
+    res.render('sales',{store,Data});
   });
-
-   
   }

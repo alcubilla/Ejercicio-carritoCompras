@@ -11,17 +11,16 @@ APP.use(express.json()); //para usar el body
 const PRODUCTS = express();
 const ADMIN = express();
 
-//let Data =productsList;
+const SERVER = http.createServer(APP);
+
 
 
 APP.use('/products', PRODUCTS);
 APP.use('/admin', ADMIN);
 
-const SERVER = http.createServer(APP);
+APP.set('views', './views');
+APP.set('view engine', 'pug');
 
-APP.get('/', (req,res) => {
-    res.send('API HOME'); 
-});
 
 
 productsRoutes(PRODUCTS, Data, store);

@@ -1,0 +1,14 @@
+div
+h2.text-center Total de ventas= #{store.total}
+table.table.table-borderless.table-dark.text-center
+    tr 
+        th 
+            h5 Producto
+        th.align-middle
+            h5 Total vendido por producto
+    each val in Data
+        tr 
+            th 
+                h6=val.name
+            th.align-middle
+                h6=val.sales
