@@ -9,7 +9,7 @@ export default[
     {
         id:'dfcb28fa-5b19-4e33-b2e8-c597fc7c520a',
         name: 'agua',
-        stock:2,
+        stock:22,
         value: 10,
         sales:0
     },

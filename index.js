@@ -13,14 +13,11 @@ const ADMIN = express();
 
 const SERVER = http.createServer(APP);
 
-
-
 APP.use('/products', PRODUCTS);
 APP.use('/admin', ADMIN);
 
 APP.set('views', './views');
 APP.set('view engine', 'pug');
-
 
 
 productsRoutes(PRODUCTS, Data, store);

@@ -12,10 +12,8 @@ export default (ADMIN,Data, store) => {
     if(req.query.name && req.query.stock && req.query.value)
       {Data.push(
         {id: uuidv4(),
-        name: req.query.name,
-        stock: Number(req.query.stock),
-        value: Number(req.query.value),
-        sales:0
+         sales:0,
+          ...req.body,
         });
         res.json(Data);
       }else res.send("No se ha podido agregar el producto, te faltó un elemento");     
@@ -28,26 +26,22 @@ export default (ADMIN,Data, store) => {
     var i = Data.indexOf( product );
     i !== -1 && Data.splice( i, 1 );
     res.json(Data);
-    }else{
-        res.sendStatus(404);
-    }
+    }else res.sendStatus(404);
   });
 
 //actualizar 
   ADMIN.put('/:id',(req,res)=>{
     const product= Data.find(p => p.id === req.params.id);
     if(product){
-        product.name=req.body.name;
-        product.value=req.body.value;
-        product.stock=req.body.stock;
-        res.json({status:'ok', result: Data});
-    }else{
-        res.status(404).send("NO SE ENCONTRO EL ARTICULO A MODIFICAR");
-    }
-   
+        product= {...req.body}
+        res.json(Data);
+    }else res.status(404).send("NO SE ENCONTRO EL ARTICULO A MODIFICAR");
   });
-
+ 
+  //ventas
   ADMIN.get('/shop',(req,res) =>{
     res.render('sales',{store,Data});
   });
+
+
   }

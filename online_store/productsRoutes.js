@@ -14,10 +14,7 @@ export default (PRODUCTS,Data, store) => {
     const product= Data.find(p => p.id === req.params.id);
     if(product){
     res.json(product);
-    }else{
-        res.sendStatus(404);
-    }
-   
+    }else res.sendStatus(404);
   })
 
   //comprar
@@ -27,13 +24,8 @@ export default (PRODUCTS,Data, store) => {
     product.stock--;
     store.total += product.value;
     product.sales +=product.value;
-    console.log(store)
     res.json(product);
-     
-    }else{
-      res.sendStatus(404);
-    }
-   
+    }else res.sendStatus(404);
   })
 
   //borrar
@@ -42,10 +34,6 @@ export default (PRODUCTS,Data, store) => {
     if(product){
     Data = Data.filter(p => p.id !== req.params.id)
     res.json(Data);
-    }else{
-        res.sendStatus(404);
-    }
-   
+    }else res.sendStatus(404);
   })
- 
 }
